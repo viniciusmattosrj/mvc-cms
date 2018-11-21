@@ -1,0 +1,7 @@
+.vscode
+.idea
+.env
+docker-compose.yml
+vendor/
+composer.lock
+anotacoes.sql

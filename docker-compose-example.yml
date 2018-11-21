@@ -1,0 +1,66 @@
+version: '2'
+services:
+  nginx:
+    image: viniciusmattosrj/nginx
+    restart: always
+    ports:
+     #- "80:80"
+     - "8056:8056"
+     - "8071:8071"
+    volumes:
+     - ../docker/nginx_conf/:/etc/nginx/conf.d
+    volumes_from:
+     - php_56:rw
+    networks:
+      projetos_developer:
+        ipv4_address: 10.11.0.81
+    container_name: nginx_projetos
+
+  #&& sed -i 's/;default_charset = \"UTF-8\"/default_charset = \"ISO-8859-1\"/' /usr/local/etc/php/php.ini
+  php_56:
+    image: viniciusmattosrj/php_56:5.6
+    command: bash -c "sed -i \"s/short_open_tag = Off/short_open_tag = On/\" /usr/local/etc/php/php.ini
+            && sed -i \"s/max_execution_time = 30/max_execution_time = 80000000/\" /usr/local/etc/php/php.ini
+            && sed -i \"s/upload_max_filesize = 2M/upload_max_filesize = 30M/\" /usr/local/etc/php/php.ini
+            && sed -i \"s/error_reporting = E_ALL/error_reporting = E_ALL \& \~E_NOTICE \& \~E_STRICT \& \~E_DEPRECATED/\" /usr/local/etc/php/php.ini
+            && sed -i \"s/;sendmail_path =/sendmail_path = \/usr\/bin\/mhsendmail --smtp-addr mailhog:1025/\" /usr/local/etc/php/php.ini
+            && sed -i \"s/post_max_size = 8M/post_max_size = 31000M/\" /usr/local/etc/php/php.ini
+            && php-fpm"
+    environment:
+     - XDEBUG_CONFIG=remote_host=172.17.0.1
+     - PHP_IDE_CONFIG=serverName=Local
+    volumes:
+     - ./:/var/www/html
+     - ~/.ssh:/root/.ssh
+     #- ../mhsendmail:/usr/bin
+    networks:
+      projetos_developer:
+        ipv4_address: 10.11.0.82
+    container_name: php_56
+
+  #&& sed -i \"s/UTF-8/ISO-8859-1/\" /usr/local/etc/php/php.ini
+  php_71: #php7.1.15
+    image: viniciusmattosrj/php_71:7.1
+    command: bash -c "sed -i \"s/short_open_tag = Off/short_open_tag = On/\" /usr/local/etc/php/php.ini
+                && sed -i \"s/register_argc_argv = Off/register_argc_argv = On/\" /usr/local/etc/php/php.ini
+                && sed -i \"s/max_execution_time = 30/max_execution_time = 80000000/\" /usr/local/etc/php/php.ini
+                && sed -i \"s/upload_max_filesize = 2M/upload_max_filesize = 30M/\" /usr/local/etc/php/php.ini
+                && sed -i \"s/max_input_time = 60/max_input_time = 80000000/\" /usr/local/etc/php/php.ini
+                && sed -i \"s/;date.timezone =/date.timezone = America\/Sao_Paulo/\" /usr/local/etc/php/php.ini
+                && sed -i \"s/;sendmail_path =/sendmail_path = \/usr\/bin\/mhsendmail --smtp-addr mailhog:1025/\" /usr/local/etc/php/php.ini
+                && sed -i \"s/post_max_size = 8M/post_max_size = 31000M/\" /usr/local/etc/php/php.ini && php-fpm"
+    container_name: php_71
+    environment:
+     - XDEBUG_CONFIG=remote_host=172.17.0.1
+     - PHP_IDE_CONFIG=serverName=Local
+    volumes:
+     - ./:/var/www/html
+     - ~/.ssh:/root/.ssh
+     #- ../mhsendmail:/usr/bin
+    networks:
+      projetos_developer:
+        ipv4_address: 10.11.0.83
+
+networks:
+  projetos_developer:
+   external: true
