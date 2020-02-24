@@ -11,13 +11,28 @@
 
 - PHP >= 7.1
 
-- Postgres >= 9.4 ou Mysql >= 5.7
+- Postgres >= 9.6 ou Mysql >= 5.7
 
 
 ## Instalação
-Realizar o git clone do projeto
+Realizar o git clone do projeto base para o funcionamento da sua rede docker:
 ```bash
-git@github.com:viniciusmattosrj/mvc-cms.git
+git@github.com:viniciusmattosrj/projetos.git
+```
+
+Para que o git não considere alterações de permissão como modificações a serem rastreadas, execute:
+```
+git config core.fileMode false
+```
+
+Agora suba o servidor:
+```
+docker-compose up -d
+```
+
+Navege até dentro da pasta projetos e realize o git clone do projeto
+```bash
+cd projetos && git@github.com:viniciusmattosrj/mvc-cms.git
 ```
 
 Para que o git não considere alterações de permissão como modificações a serem rastreadas, execute:
@@ -57,7 +72,7 @@ psql -U webadm mvc_cms < /var/lib/postgresql/sqlscript/mvc_cms.pgsql
 
 Para o acesso no <strong>POSTGRES</strong> database administration tool, use http://localhost:5050 e use as credênciais abaixo:
 
-  - server:
+  - server: 10.11.0.2
   - username:
   - password:
 
@@ -76,7 +91,7 @@ mysql -u root -p mvc_cms < /var/lib/mysql57/mvc_cms.sql
 
 Para o acesso no <strong>MYSQL</strong> database administration tool, use http://localhost:8080 e use as credênciais abaixo:
 
-  - server:
+  - server: 10.11.0.3
   - username:
   - password:
 
