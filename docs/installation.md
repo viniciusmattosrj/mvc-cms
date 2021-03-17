@@ -34,7 +34,7 @@ Valor | O que é? | Exemplos de Parâmetros
 DB_CONNECTION        | Nome adapter da base de dados | ex: 'mysql'
 DB_HOST              | Ip ou nome contaienr da base de dados | ex: '10.11.0.11' ou 'mysql'
 DB_PORT              | Port de conexão com base de dados | ex: '3306'
-DB_DATABASE          | Nome da base dados | ex: 'php_pdo'
+DB_DATABASE          | Nome da base dados | ex: 'mvc_cms'
 DB_USERNAME          | Usuário de conexão com base de dados | ex: 'root'
 DB_PASSWORD          | Senha de conexão com base de dados | ex: '123Mudar'
 
@@ -77,20 +77,20 @@ sudo chmod 777 -R keys vendor
 MySQL:
 ```
 docker exec -it mysql bash
-mysql -u root -c "CREATE DATABASE php_pdo;";
+mysql -u root -c "CREATE DATABASE mvc_cms;";
 ```
 
 Postgres:
 ``` 
 docker exec -it postgres bash
-psql -U webadm -c "CREATE DATABASE php_pdo";
+psql -U webadm -c "CREATE DATABASE mvc_cms";
 ```
 
 Realizando a importação dump sql para a base criada:
 
-MySQL: `mysql -u root -p php_pdo < /var/lib/mysql57/php_pdo.sql` 
+MySQL: `mysql -u root -p mvc_cms < /var/lib/mysql57/mvc_cms.sql` 
 
-Postgres: `psql -U webadm php_pdo < /var/lib/postgresql/php_pdo.sql`
+Postgres: `psql -U webadm mvc_cms < /var/lib/postgresql/mvc_cms.sql`
 
 
 Execute os comandos abaixo:
