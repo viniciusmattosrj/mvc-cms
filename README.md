@@ -8,9 +8,8 @@
 - Composer
 - PHP &ge; 7.3.22
 
-### Tecnologias Utilizadas
-- PHPUnit &ge; 7.5.*
-
+### Débitos Técnicos
+- Incluir testes com PHPUnit &ge; 7.5.*
 
 ### Sobre
 
