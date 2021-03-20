@@ -1,0 +1,12 @@
+name: Continuous Integration
+
+on:
+  push:
+    branches:
+      - 'main'
+      - 'feature/**'
+      - 'hotfix/**'
+  pull_request:
+    branches:
+      - 'release/**'
+      - 'main'
